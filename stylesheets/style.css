@@ -1,0 +1,137 @@
+:root {
+  font-size: 16px;
+  font-family: 'Open Sans';
+  /* css variables */
+  /* website */
+  --color1: #090909;
+  --color2: #1C1C1C;
+  --color3: #38393A;
+  --color4: #828282;
+  --color5: #d8e2dc;
+  --color6: #FBFFF9;
+  /* nav colors */
+  --text-primary: #FBFFF9;
+  --text-secondary: #d8e2dc;
+  --extra-text: #828282;
+  --bg-primary: #1C1C1C;
+  --bg-secondary: #090909;
+  --extra-bgcolor: #38393A;
+  --transition-speed: 600ms;
+} 
+
+.dark {
+  --text-primary: #FBFFF9;
+  --text-secondary: #828282;
+  --bg-primary: #1C1C1C;
+  --bg-secondary: #090909;
+  --extra-bgcolor: #38393A;
+}
+
+.light {
+  --text-primary: #090909;
+  --text-secondary: #1f1f1f;
+  --bg-primary: #ffffff;
+  --bg-secondary: #F7FEF5;
+  --extra-bgcolor: #EFE6DD;
+}
+
+*, *::after, *::before {
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+}
+
+body {
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  font-family: 'Grill Sans', 'Calibri', 'sans-serif';
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* design scrollbar */
+body::-webkit-scrollbar {
+  width: 0.25rem;
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+body::-webkit-scrollbar-thumb {
+  background: var(--color4);
+}
+
+/* body */
+
+.body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background-color: var(--bg-primary);
+}
+
+body, .quote-input {
+  color: var(--text-secondary);
+}
+
+.container {
+  background-color: var(--extra-bgcolor);
+  padding: 1rem;
+  border-radius: .5rem;
+  width: 700px;
+  max-width: 90%;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.82);
+  -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.82);
+  -webkit-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.82);
+}
+
+.timer {
+  position: absolute;
+  top: 2rem;
+  font-size: 3rem;
+  color: #F0DB4F;
+  font-weight: bold;
+}
+
+.quote-display {
+  margin-bottom: 1rem;
+  margin-left: calc(1rem + 2px);
+  margin-right: calc(1rem + 2px);
+}
+
+.quote-input {
+  background-color: transparent;
+  border: 2px solid var(--bg-secondary);
+  outline: none;
+  width: 100%;
+  height: 8rem;
+  margin: auto;
+  resize: none;
+  padding: .5rem 1rem;
+  font-size: 1rem;
+  border-radius: .5rem;
+}
+
+.quote-input:focus {
+  border-color: black;
+}
+
+.correct {
+  color: green;
+}
+
+.incorrect {
+  color: red;
+  text-decoration: underline;
+}
