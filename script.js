@@ -5,67 +5,70 @@ const quoteDisplayElement = document.querySelector("#quote-display")
 const quoteInputElement = document.querySelector("#quote-input")
 const timerElement = document.querySelector('#timer')
 
+
+quoteInputElement.addEventListener('keypress', userStartedTyping)
+
+quoteInputElement.addEventListener('input', () => {
+  const arrayQuote = quoteDisplayElement.querySelectorAll('span')
+  const arrayValue = quoteInputElement.value.split('')
+  let correct = true
+  arrayQuote.forEach((characterSpan, index) => {
+    const character = arrayValue[index]
+    if (character == null) {
+      characterSpan.classList.remove('correct')
+      characterSpan.classList.remove('incorrect')
+      correct = false 
+    } else if (character === characterSpan.innerText) {
+      characterSpan.classList.add('correct')
+      characterSpan.classList.remove('incorrect')
+    } else {
+      characterSpan.classList.remove('correct')
+      characterSpan.classList.add('incorrect')
+      correct = false
+    }
+  })
+  console.log("user called typing ", correct);
+  if (correct) {
+    console.log("loggen to mcuh");
+    quoteInputElement.addEventListener('keypress', userStartedTyping)
+    renderNewQuote()
+  }
+})
+
 async function getRandomQuote() {
   const response = await fetch(RANDOM_QUOTE_API_URL);
   const data = await response.json()
   return data.content
 }
 
-async function currentWord() {
-  const quote = await getRandomQuote()
-  quoteDisplayElement.innerHTML = quote;
-  console.log(quote);
-  // quoteDisplayElement.innerText = ''
-  const words = quote.split(' ')
-  return words
-}
-
-
-async function renderNewQuote() {
-  const quote = await getRandomQuote()
-  quoteDisplayElement.innerHTML = quote;
-  console.log(quote);
-  const words = quote.split(' ')
-  let index = 0
-  // quote.split('').forEach(character => {
-    //   const characterSpan = document.createElement('span')
-    //   characterSpan.innerText = character
-    //   quoteDisplayElement.appendChild(characterSpan)
-    // })
-    quoteInputElement.value = null;
-    startTimer()
-  
-  quoteInputElement.addEventListener('input', () => {
-    while ( index < words.length) {
-      const wordSpan = document.createElement('span')
-      wordSpan.innerText = words[index]
-      quote.substr(quote.indexOf(words[index + 1]))
+async function checkTheWords() {
+  quoteDisplayElement.innerHTML = null
+  quote.split('').forEach((character, index) => {
+    const wordSpan = document.createElement('span')
+    wordSpan.innerText = character
+    const checkSpanExist = quoteDisplayElement.querySelector('span')
+    if (checkSpanExist) {
+      console.log("no span");
+      quoteDisplayElement.appendChild(wordSpan)
+    } else {
+      console.log("span exist")
       quoteDisplayElement.prepend(wordSpan)
-
-      const arrayQuote = quoteDisplayElement.querySelector('span').lastChild
-      console.log(arrayQuote);
-      const characterQuoteArray = arrayQuote.toString().split('')
-      console.log("look", characterQuoteArray);
-      const arrayValue = quoteInputElement.value.split('')
-      let correct = true
-      characterQuoteArray.forEach((characterSpan, index) => {
-        const character = arrayValue[index]
-        if (character == null) {
-          characterSpan.classList.remove('correct')
-          characterSpan.classList.remove('incorrect')
-          correct = false 
-        } else if (character === characterSpan[index].innerText) {
-          characterSpan.classList.add('correct')
-          characterSpan.classList.remove('incorrect')
-        } else {
-          characterSpan.classList.remove('correct')
-          characterSpan.classList.add('incorrect')
-          correct = false
-        }
-      })
-      if (correct) renderNewQuote()
     }
   })
+}
+
+async function userStartedTyping() {
+  quoteInputElement.removeEventListener('keypress', userStartedTyping)
+  checkTheWords()
+  startTimer()
+}
+
+let quote
+async function renderNewQuote() {
+  quote = await getRandomQuote()
+  quoteDisplayElement.innerHTML = quote;
+  console.log(quote);
+  quoteInputElement.value = null;
 }
 
 let startTime
