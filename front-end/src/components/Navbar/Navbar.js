@@ -2,12 +2,13 @@ import React from 'react'
 import Nav from './Nav'
 import './Navbar.css'
 
-const Navbar = () => {
+const Navbar = ({ setDarkMode, darkMode }) => {
   return (
     <nav className="navbar">
-      <ul className="navbar-nav">
-        <Nav />
-      </ul>
+      <div className="div-navbar">
+        <div className="logo">Light-Typing</div>
+        <Nav setDarkMode={setDarkMode} darkMode={darkMode} />
+      </div>
     </nav>
   )
 }

@@ -4,6 +4,7 @@ import './NavItem.css'
 function NavItem(props) {
   const [openItem, SetOpenItem] = useState(false)
   const openNavItem = () => {
+    console.log('hello', props.open)
     if(props.open !== undefined) props.setOpen(!props.open)
     else SetOpenItem(!openItem)
   }

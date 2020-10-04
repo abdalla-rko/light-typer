@@ -6,25 +6,26 @@ import { ReactComponent as PlusIcon } from '../icons/plus.svg'
 import NavItem from './NavItem'
 import DropdownMenu from './DropdownMenu'
 import onClickOutside from 'react-onclickoutside'
+import './Nav.css'
 
-function Navbar({ setDarkMode, darkMode }) {
+function Nav({ setDarkMode, darkMode }) {
   const [open, setOpen] = useState(false)
-  Navbar.handleClickOutside = () => setOpen(false);
+  Nav.handleClickOutside = () => setOpen(false);
   return (
-      <>
+      <ul className="navbar-nav">
         <NavItem icon={<PlusIcon />} />
         <NavItem icon={<BellIcon />} />
         <NavItem icon={<MessengerIcon />} />
         <NavItem open={open} setOpen={setOpen} icon={<CaretIcon />} >
           <DropdownMenu setDarkMode={setDarkMode} darkMode={darkMode} />
         </NavItem>
-      </>
+      </ul>
   )
 }
 
 
 const ClickOutsideConfig = {
-  handleClickOutside: () => Navbar.handleClickOutside
+  handleClickOutside: () => Nav.handleClickOutside
 }
 
-export default onClickOutside(Navbar, ClickOutsideConfig)
+export default onClickOutside(Nav, ClickOutsideConfig)

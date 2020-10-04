@@ -4,16 +4,13 @@ const Quote = ({ quote, typing, inputText, setFinshed, finished }) => {
   const [checkCharacters, setCheckCharacters] = useState([])
 
   useEffect(() => {
-    const checkTheWords = () => {
-      const inputTextArray = inputText.split('')
-      setCheckCharacters(inputTextArray)
-    }
+    const inputTextArray = inputText.split('')
+    setCheckCharacters(inputTextArray)
     if(quote) {
-      if(JSON.stringify(quote.split('')) === JSON.stringify(checkCharacters)) {
+      if(JSON.stringify(quote.split('')) === JSON.stringify(inputTextArray)) {
         setFinshed(!finished)
       }
     }
-    checkTheWords()
   }, [inputText])
 
   return (

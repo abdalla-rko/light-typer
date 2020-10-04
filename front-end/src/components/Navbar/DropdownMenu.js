@@ -22,6 +22,7 @@ function DropdownMenu({ setDarkMode, darkMode }) {
 
   function DropdownItem(props) {
     const whenClicked = () => {
+      console.log('clicked', props.darkMode)
       props.goToMenu && setActiveMenu(props.goToMenu)
       return props.darkMode === undefined ? null : props.setDarkMode(!props.darkMode)
     }
@@ -29,7 +30,7 @@ function DropdownMenu({ setDarkMode, darkMode }) {
       <a href="#" className="menu-item" onClick={whenClicked}>
         <span className="icon-button">{props.leftIcon}</span>
         {props.children}
-        <span className="icon-right">{props.rightIcon}</span>
+        {props.rightIcon && <span className="icon-right">{props.rightIcon}</span>}
       </a>
     )
   }
@@ -49,7 +50,10 @@ function DropdownMenu({ setDarkMode, darkMode }) {
           <DropdownItem>Settings</DropdownItem>
           <DropdownItem>Settings</DropdownItem>
           <DropdownItem>Settings</DropdownItem>
-          <DropdownItem darkMode={darkMode} setDarkMode={setDarkMode}>Dark Mode</DropdownItem>
+          <DropdownItem darkMode={darkMode} setDarkMode={setDarkMode}>
+            Dark Mode
+            <input className="icon-right" type="checkbox" id="switch" checked={darkMode} /><label htmlFor="switch">Toggle</label>
+          </DropdownItem>
         </div>
       </CSSTransition>
     </div>
