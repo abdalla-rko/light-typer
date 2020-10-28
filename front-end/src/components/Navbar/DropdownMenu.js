@@ -52,7 +52,7 @@ function DropdownMenu({ setDarkMode, darkMode }) {
           <DropdownItem>Settings</DropdownItem>
           <DropdownItem darkMode={darkMode} setDarkMode={setDarkMode}>
             Dark Mode
-            <input className="icon-right" type="checkbox" id="switch" checked={darkMode} /><label htmlFor="switch">Toggle</label>
+            <input className="icon-right toggle-theme-input" type="checkbox" id="switch" checked={darkMode} /><label className="toggle-theme-label" htmlFor="switch">Toggle</label>
           </DropdownItem>
         </div>
       </CSSTransition>

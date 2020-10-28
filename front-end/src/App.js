@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Navbar from './components/Navbar/Navbar'
 import Form from './components/Form'
-import {CSSTransition, TransitionGroup} from 'react-transition-group'
+import Signup from './components/Auth/Signup'
+import { AuthProvider } from './contexts/AuthContext';
 
 function App() {
   const [darkMode, setDarkMode] = useState(getTheme())
@@ -31,13 +32,18 @@ function App() {
     }
     saveLocalTheme()
   }, [darkMode])
+
   return (
+    <AuthProvider>
   <div className={`${darkMode ? "dark" : "light"}`}>
     <header>
       <Navbar setDarkMode={setDarkMode} darkMode={darkMode} />
     </header>
+    {/* <Signup /> */}
     <Form />
-  </div>);
+  </div>
+  </AuthProvider>
+  );
 }
 
 export default App;
