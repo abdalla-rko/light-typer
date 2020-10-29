@@ -23,21 +23,19 @@ async function createJsonWebToken(email, res) {
   res.json({_id: userId ,username: username});
 }
 
-function refreshAndCheckToken(req, res, next, authenticate) {
+function refreshAndCheckToken(req, res) {
   if (req.headers.cookie){
     const parseHeader = cookie.parse(req.headers.cookie)
     if (parseHeader.Authorization) {
+      console.log('testing');
       const authHeader = parseHeader.Authorization.split(' ')[1];
       jwt.verify(authHeader, process.env.TOKEN_SECRET, async (err, user) => {
-        if (err) {
-          if (authenticate === '/auth') return res.redirect(authenticate)
-          return next()
-        }
+        if (err) return false
         req.user = user
         const refreshToken = await User.findOne({_id: user._id}, {_id: 0, refresh_token: 1})
-        if (!refreshToken) return res.redirect('/auth')
+        if (!refreshToken) return false
         jwt.verify(refreshToken.refresh_token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-          if (err) return res.res.redirect('/auth')
+          if (err) return false
           const accessToken = jwt.sign({_id: user._id, username: user.username}, process.env.TOKEN_SECRET);
           
           const setCookie = cookie.serialize('Authorization', 'Bearer ' + accessToken, {
@@ -45,33 +43,21 @@ function refreshAndCheckToken(req, res, next, authenticate) {
             path: '/'
           })
           res.cookie('Authorization', authHeader, {maxAge: Date.now()})
+          console.log('authHeader', authHeader);
+          console.log('accses', accessToken);
           res.setHeader('Set-Cookie', setCookie)
-          if (authenticate === '/') return res.redirect(authenticate)
-          next()
+          return res.json(true)
         })
       })
     } else {
-      if (authenticate === '/auth') return res.redirect(authenticate)
-      next()
+      return false
     }
   } else {
-    if (authenticate === '/auth') return res.redirect(authenticate)
-    next()
+    return false
   }
-}
-
-function checkAuthenticateToken (req, res, next) {
-  const userIsAuthenticated = '/';
-  refreshAndCheckToken(req, res, next, userIsAuthenticated)
-}
-
-function authenticateToken(req, res, next) {
-  const userNotAuthenticated = '/auth';
-  refreshAndCheckToken(req, res, next, userNotAuthenticated)
 }
 
 module.exports = {
   createJsonWebToken,
-  authenticateToken,
-  checkAuthenticateToken
+  refreshAndCheckToken
 }
