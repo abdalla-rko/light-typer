@@ -12,6 +12,7 @@
   align-items: center;
   font-size: 140%;
   font-weight: bold;
+  color: var(--text-primary);
 }
 
 .div-navbar {
@@ -19,4 +20,5 @@
   height: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }

@@ -3,24 +3,12 @@ import './App.css';
 import Navbar from './components/Navbar/Navbar'
 import Form from './components/Form'
 import Signup from './components/Auth/Signup'
-import { AuthProvider } from './contexts/AuthContext';
+import PrivateRotue from './components/PrivateRoute'
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 function App() {
   const [darkMode, setDarkMode] = useState(getTheme())
-  const [loggedIn, setLoggedIn] = useState(checkLoginStatus)
-
-  async function checkLoginStatus() {
-    const response = await fetch('/auth/logged', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      credentials: 'include'
-    })
-    const data = await response.json()
-    return data
-  }
 
   function getTheme(){
     const themeInStorage = JSON.parse(localStorage.getItem('theme'));
@@ -54,8 +42,14 @@ function App() {
           <header>
             <Navbar setDarkMode={setDarkMode} darkMode={darkMode} />
           </header>
-          {/* <Signup /> */}
-          <Form />
+          <Switch>
+            <Route path="/" exact component={Form} />
+            <PrivateRotue path="/auth" exact>
+              <Signup />
+            </PrivateRotue>
+            {/* <Route path="/about" exact component={Home} /> */}
+            {/* <Route path="/" exact component={Error} /> */}
+          </Switch>
         </AuthProvider>
       </div>
     </Router>

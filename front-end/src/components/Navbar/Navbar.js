@@ -7,7 +7,9 @@ const Navbar = ({ setDarkMode, darkMode }) => {
   return (
     <nav className="navbar">
       <div className="div-navbar">
-        <div className="logo">Light-Typing</div>
+        <Link to='/'>
+          <div className="logo">Light-Typing</div>
+        </Link>
         <Nav setDarkMode={setDarkMode} darkMode={darkMode} />
       </div>
     </nav>
