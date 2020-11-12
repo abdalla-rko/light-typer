@@ -4,7 +4,7 @@ import Navbar from './components/Navbar/Navbar'
 import Form from './components/Form'
 import Signup from './components/Auth/Signup'
 import PrivateRotue from './components/PrivateRoute'
-import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { AuthProvider } from './contexts/AuthContext';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 function App() {

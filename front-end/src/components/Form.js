@@ -6,7 +6,8 @@ const Form = () => {
   // state
   const [inputText, setInputText] = useState('');
   const [timeInterval, setTimeInterval] = useState({})
-  const [time, setTime] = useState('')
+  const [time, setTime] = useState('0')
+  const [wpm, setWpm] = useState('0')
   const [quote, setQuote] = useState('')
   const [typing, setTyping] = useState(false)
   const [finished, setFinshed] = useState(false)
@@ -25,9 +26,21 @@ const Form = () => {
     window.addEventListener("keypress", userStartedTyping)
     setTyping(false)
     clearInterval(timeInterval.timeInterval)
-    setTime('')
+    setTime('0')
+    setWpm('0')
     renderNewQuote()
   }, [finished])
+  
+  useEffect(() => {
+      const getWPM = () => {
+        if (time > 0) setWpm(Math.round(inputText.length / 5 / (time / 60)))
+      }
+      console.log('getting ',);
+      const wpmInterval = setInterval(getWPM, 100);
+    return () => {
+      clearInterval(wpmInterval)
+    }
+  }, [time])
   // functions 
   const getRandomQuote = async () => {
     const RANDOM_QUOTE_API_URL = 'http://api.quotable.io/random'
@@ -47,10 +60,15 @@ const Form = () => {
     const timeInterval = setInterval(getTimerTime, 1000)
     setTimeInterval({timeInterval: timeInterval})
   }
+  
+
   return (
     <div className="form">
-      <div className="timer">{time}</div>
       <div className="container">
+      <div className="timer">
+        <div>{time}</div>
+        <div>{wpm} wpm</div>
+      </div>
         <Quote quote={quote} typing={typing} inputText={inputText} setFinshed={setFinshed} finished={finished} />
         <textarea onChange={inputTextHandler} value={inputText} className="quote-input" autoFocus></textarea>
       </div>
