@@ -7,7 +7,7 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState()
+  const [currentUser, setCurrentUser] = useState({})
   const [loading, setLoading] = useState(true)
   /* eslint-disable */
   async function signup(googleUser) {
@@ -37,6 +37,8 @@ export function AuthProvider({ children }) {
       credentials: 'include'
     })
     const data = await response.json()
+    console.log('data *********', data);
+    setCurrentUser(data)
     setLoading(false)
     return data
   }

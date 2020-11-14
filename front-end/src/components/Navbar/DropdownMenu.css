@@ -26,8 +26,25 @@
   background-color: var(--extra-bgcolor);
 } 
 
+.icon-button img {
+  width: var(--button-size);
+  height: var(--button-size);
+  background-color: var(--bg-primary);
+  border-radius: 50%;
+}
+
+.dropdown-icons {
+  margin-right: 5%;
+}
+
 .icon-right {
   margin-left: auto;
+}
+
+.icon-right svg {
+  fill: var(--bg-primary);
+  width: 20px;
+  height: 20px;
 }
 
 .menu {

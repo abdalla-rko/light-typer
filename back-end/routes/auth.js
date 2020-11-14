@@ -15,7 +15,6 @@ router.post('/google', (req, res) => {
       audience: process.env.GOOGLE_CLIENT_ID,
     });
     const payload = ticket.getPayload();
-    console.log(payload)
     const userName = payload['name'];
     const userEmail = payload['email'];
     const picture = payload['picture'];

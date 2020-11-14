@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import Quote from './Quote'
 import './Form.css'
+import moment from 'moment';
 
 const Form = () => {
-  // state
   const [inputText, setInputText] = useState('');
   const [timeInterval, setTimeInterval] = useState({})
   const [time, setTime] = useState('0')
@@ -11,7 +11,7 @@ const Form = () => {
   const [quote, setQuote] = useState('')
   const [typing, setTyping] = useState(false)
   const [finished, setFinshed] = useState(false)
-  // useEffect
+
   useEffect(() => {
     const userStartedTyping = (e) => {
       window.removeEventListener('keypress', userStartedTyping)
@@ -41,7 +41,7 @@ const Form = () => {
       clearInterval(wpmInterval)
     }
   }, [time])
-  // functions 
+
   const getRandomQuote = async () => {
     const RANDOM_QUOTE_API_URL = 'http://api.quotable.io/random'
     const response = await fetch(RANDOM_QUOTE_API_URL);
@@ -61,12 +61,15 @@ const Form = () => {
     setTimeInterval({timeInterval: timeInterval})
   }
   
+  const convertTime = (sec, zero = 0) => {
+    return sec + zero > 9 ? sec : "0" + sec;
+  }
 
   return (
     <div className="form">
       <div className="container">
       <div className="timer">
-        <div>{time}</div>
+  <div>{convertTime(parseInt(time / 60, 10), 10)}:{convertTime(time % 60)}</div>
         <div>{wpm} wpm</div>
       </div>
         <Quote quote={quote} typing={typing} inputText={inputText} setFinshed={setFinshed} finished={finished} />
