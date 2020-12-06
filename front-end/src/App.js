@@ -4,11 +4,14 @@ import Navbar from './components/Navbar/Navbar'
 import Form from './components/Form'
 import Signup from './components/Auth/Signup'
 import PrivateRotue from './components/PrivateRoute'
+import Modal from './components/Modal'
 import { AuthProvider } from './contexts/AuthContext';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 function App() {
   const [darkMode, setDarkMode] = useState(getTheme())
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isStatsOpen, setIsStatsOpen] = useState(false)
 
   function getTheme(){
     const themeInStorage = JSON.parse(localStorage.getItem('theme'));
@@ -40,8 +43,14 @@ function App() {
       <div className={`${darkMode ? "dark" : "light"}`}>
         <AuthProvider>
           <header>
-            <Navbar setDarkMode={setDarkMode} darkMode={darkMode} />
+            <Navbar setDarkMode={setDarkMode} darkMode={darkMode} setIsModalOpen={setIsModalOpen} setIsStatsOpen={setIsStatsOpen} />
           </header>
+          <Modal title="Log In" isModalOpen={isModalOpen} onClose={() => setIsModalOpen(false)} >
+            <Signup />
+          </Modal>
+          <Modal title="Log In" isModalOpen={isStatsOpen} onClose={() => setIsStatsOpen(false)} >
+            <Signup />
+          </Modal>
           <Switch>
             <Route path="/" exact component={Form} />
             <PrivateRotue path="/auth" exact>

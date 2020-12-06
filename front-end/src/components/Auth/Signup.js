@@ -2,9 +2,6 @@ import React, { useRef, useState, useEffect } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 
 function Signup() {
-  const emailRef = useRef()
-  const passwordRef = useRef()
-  const passwordConfirmRef = useRef()
   const { signup, currentUser, signOut } = useAuth()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)

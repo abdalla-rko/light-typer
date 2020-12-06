@@ -1,5 +1,4 @@
 .nav-item {
-  width: calc(var(--nav-size) * 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,6 +20,14 @@
 
 .icon-button:hover {
   filter: brightness(1.2)
+}
+
+.text-button {
+  transition: filter 300ms;
+}
+
+.text-button:hover {
+  filter: brightness(0.5)
 }
 
 .icon-button svg {

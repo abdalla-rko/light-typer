@@ -1,7 +1,52 @@
+:root {
+  font-size: 16px;
+  font-family: 'Open Sans';
+  /* css variables */
+  /* website */
+  /* dark */
+  --color1: #090909;
+  --color2: #1C1C1C;
+  --color3: #38393A;
+  --color4: #828282;
+  --color5: #d8e2dc;
+  --color6: #FBFFF9;
+  /* light */
+  --color7: #8ba3a3;
+  --color8: #66cbcb;
+  --color9: #003249;
+  --color10: #333333;
+  /* colors */
+  --text-primary: #FBFFF9;
+  --text-secondary: #d8e2dc;
+  --extra-text: #828282;
+  --bg-primary: #1C1C1C;
+  --bg-secondary: #090909;
+  --extra-bgcolor: #38393A;
+  --transition-speed: 600ms;
+  --nav-size: 65px;
+  --border: 1px solid var(--color3);
+  --border-radius: 8px;
+}
+
+*, *::after, *::before {
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 body {
   color: var(--text-primary);
   background-color: var(--bg-primary);
-  font-family: 'Grill Sans', 'Calibri', 'sans-serif';
+  font-family: 'Roboto', 'Grill Sans', 'Calibri', 'sans-serif';
   margin: 0;
   padding: 0;
 
