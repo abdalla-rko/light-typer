@@ -9,8 +9,10 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState({})
   const [loading, setLoading] = useState(true)
+
   /* eslint-disable */
   async function signup(googleUser) {
+    console.log('*********8 google');
     const id_token = googleUser.getAuthResponse().id_token;
     // sign up user with mongodb
     const response = await fetch('/auth/google', {
@@ -25,6 +27,19 @@ export function AuthProvider({ children }) {
     const data = await response.json();
     setCurrentUser(data)
     setLoading(false)
+  }
+
+  async function signupFB(facebookUser) {
+    console.log('its working', facebookUser);
+    const response = await fetch('/auth/facebook', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(facebookUser)
+    })
+    const data = await response.json()
+    setCurrentUser(data)
   }
 
 
@@ -44,6 +59,12 @@ export function AuthProvider({ children }) {
   }
 
   async function signOut() {
+    const auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('logged out');
+      // auth2.disconnect();
+    });
+
     fetch('/auth/logout', {
       method: 'POST',
       headers: {
@@ -52,11 +73,7 @@ export function AuthProvider({ children }) {
     }).then(res => console.log(res.json()))
       .then(data => console.log(data))
       .catch(error => console.log('error', error))
-    
-    const auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      // auth2.disconnect();
-    });
+      
     setLoading(false)
   }
 
@@ -65,6 +82,7 @@ export function AuthProvider({ children }) {
     checkLoginStatus,
     loading,
     signup,
+    signupFB,
     signOut 
   }
   return (

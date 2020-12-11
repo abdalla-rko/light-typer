@@ -45,17 +45,17 @@ function App() {
           <header>
             <Navbar setDarkMode={setDarkMode} darkMode={darkMode} setIsModalOpen={setIsModalOpen} setIsStatsOpen={setIsStatsOpen} />
           </header>
-          <Modal title="Log In" isModalOpen={isModalOpen} onClose={() => setIsModalOpen(false)} >
+          <Modal title="Log In" darkMode={darkMode} isModalOpen={isModalOpen} onClose={() => setIsModalOpen(false)} >
             <Signup />
           </Modal>
-          <Modal title="Log In" isModalOpen={isStatsOpen} onClose={() => setIsStatsOpen(false)} >
-            <Signup />
+          <Modal title="Log In" darkMode={darkMode} isModalOpen={isStatsOpen} onClose={() => setIsStatsOpen(false)} >
+            hello
           </Modal>
           <Switch>
             <Route path="/" exact component={Form} />
-            <PrivateRotue path="/auth" exact>
+            {/* <PrivateRotue path="/auth" exact>
               <Signup />
-            </PrivateRotue>
+            </PrivateRotue> */}
             {/* <Route path="/about" exact component={Home} /> */}
             {/* <Route path="/" exact component={Error} /> */}
           </Switch>

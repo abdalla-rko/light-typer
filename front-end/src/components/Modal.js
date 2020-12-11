@@ -2,9 +2,9 @@ import React from 'react'
 import ReactDom from 'react-dom';
 import './Modal.css'
 
-const Modal = ({ title, isModalOpen, onClose, children }) => {
+const Modal = ({ title, darkMode, isModalOpen, onClose, children }) => {
   return ReactDom.createPortal(
-    <>
+    <div className={`${darkMode ? "dark" : "light"}`}>
       <div onClick={onClose} className={`modal-overlay ${isModalOpen ? 'active' : ''}`}></div>
       <div className={`modal ${isModalOpen ? 'active' : ''}`}>
         <div className="modal-header">
@@ -17,7 +17,7 @@ const Modal = ({ title, isModalOpen, onClose, children }) => {
           {children}
         </div>
       </div>
-    </>,
+    </div>,
     document.getElementById('portal')
   )
 }

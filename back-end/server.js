@@ -13,7 +13,7 @@ const app = express()
 
 app.use(bodyParser.json({ limit: '1mb' }))
 app.use(bodyParser.urlencoded({
-  extended: true
+  extended: false
 }))
 app.use(cookieParser())
 app.use(cors())

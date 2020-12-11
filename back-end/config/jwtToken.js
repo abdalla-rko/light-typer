@@ -29,7 +29,6 @@ function refreshAndCheckToken(req, res) {
   if (req.headers.cookie){
     const parseHeader = cookie.parse(req.headers.cookie)
     if (parseHeader.Authorization) {
-      console.log('testing');
       const authHeader = parseHeader.Authorization.split(' ')[1];
       jwt.verify(authHeader, process.env.TOKEN_SECRET, async (err, user) => {
         if (err) return {}
@@ -45,8 +44,6 @@ function refreshAndCheckToken(req, res) {
             path: '/'
           })
           res.cookie('Authorization', authHeader, {maxAge: Date.now()})
-          console.log('authHeader', authHeader);
-          console.log('accses', accessToken);
           res.setHeader('Set-Cookie', setCookie)
           return res.json({_id: user._id, username: user.username, picture: user.picture})
         })

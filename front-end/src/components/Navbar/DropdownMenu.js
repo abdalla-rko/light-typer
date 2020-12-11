@@ -12,7 +12,7 @@ import './DropdownMenu.css'
 function DropdownMenu({ setDarkMode, darkMode }) {
   const [activeMenu, setActiveMenu] = useState('main')
   const [menuHeight, setMenuHeight] = useState(null)
-  const { currentUser } = useAuth()
+  const { currentUser, signOut } = useAuth()
   const dropdownRef = useRef(0);
 
   console.log('use', currentUser);
@@ -48,7 +48,9 @@ function DropdownMenu({ setDarkMode, darkMode }) {
           <DropdownItem leftIcon={<img src={currentUser.picture} alt="avatar"/>} >{currentUser.username}</DropdownItem>
           <DropdownItem leftIcon={<CogIcon />} rightIcon={<CheveronIcon />} goToMenu="settings">settings</DropdownItem>
           <DropdownItem leftIcon={<QuestionCircle />} >About</DropdownItem>
-          <DropdownItem leftIcon={<LogOut />} >Log Out</DropdownItem>
+          <div onClick={signOut}>
+            <DropdownItem leftIcon={<LogOut />} >Log Out</DropdownItem>
+          </div>
         </div>
       </CSSTransition>
 
