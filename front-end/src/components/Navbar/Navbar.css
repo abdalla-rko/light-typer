@@ -2,6 +2,7 @@
   transition: background-color var(--transition-speed) ease-out;
   height: var(--nav-size);
   background-color: var(--bg-secondary);
+  color: var(--extra-bgcolor);
   padding: 0 1rem;
   border-bottom: var(--border);
 }

@@ -23,11 +23,13 @@ function Nav({ setDarkMode, darkMode, setIsModalOpen, setIsStatsOpen }) {
             <Link to='/'>
               <div className="logo">Light-Typing</div>
             </Link>
-          <NavItem text="Home" />
+            <Link to='/'>
+              <NavItem text="Home" />
+            </Link>
           <div onClick={() => setIsStatsOpen(true)}>
             <NavItem text="Stats" />
           </div>
-          <Link to='/auth'>
+          <Link to='/About'>
             <NavItem text="About" />
           </Link>
         </div>

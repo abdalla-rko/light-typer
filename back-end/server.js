@@ -22,6 +22,10 @@ app.use(cors())
 
 app.use('/auth', authRoute)
 
+app.post('/wpm', (req, res) => {
+  
+})
+
 
 //Connect to DB
 mongoose.connect(process.env.DB_CONNECTION, {

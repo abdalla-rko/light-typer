@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import Quote from './Quote'
 import './Form.css'
-import moment from 'moment';
 
-const Form = () => {
+const Form = ({storageValue, setStorageValue}) => {
   const [inputText, setInputText] = useState('');
   const [timeInterval, setTimeInterval] = useState({})
   const [time, setTime] = useState('0')
@@ -11,6 +10,7 @@ const Form = () => {
   const [quote, setQuote] = useState('')
   const [typing, setTyping] = useState(false)
   const [finished, setFinshed] = useState(false)
+
 
   useEffect(() => {
     const userStartedTyping = (e) => {
@@ -29,6 +29,18 @@ const Form = () => {
     setTime('0')
     setWpm('0')
     renderNewQuote()
+    function updateStatics() {
+      let fastestTest = storageValue.fastest
+      const isFastestSpeed = wpm > fastestTest && storageValue.average.every(num => num > fastestTest)
+      if(isFastestSpeed) {
+        if(wpm > fastestTest) fastestTest = wpm 
+        else fastestTest = storageValue.average.filter(num => num > fastestTest)[0]
+      }
+      let averageTest = storageValue.average
+      if(storageValue.average.length > 10) averageTest = storageValue.average.slice(1)
+      return {last: wpm, average: [...averageTest, wpm], fastest: fastestTest}
+    }
+    if(wpm > 0) setStorageValue(updateStatics())
   }, [finished])
   
   useEffect(() => {
@@ -65,11 +77,15 @@ const Form = () => {
     return sec + zero > 9 ? sec : "0" + sec;
   }
 
+  const timer = () => {
+    return `${convertTime(parseInt(time / 60, 10), 10)}:${convertTime(time % 60)}`
+  }
+
   return (
     <div className="form">
       <div className="container">
       <div className="timer">
-  <div>{convertTime(parseInt(time / 60, 10), 10)}:{convertTime(time % 60)}</div>
+      <div>{timer()}</div>
         <div>{wpm} wpm</div>
       </div>
         <Quote quote={quote} typing={typing} inputText={inputText} setFinshed={setFinshed} finished={finished} />
