@@ -31,13 +31,10 @@ const Form = ({storageValue, setStorageValue}) => {
     renderNewQuote()
     function updateStatics() {
       let fastestTest = storageValue.fastest
-      const isFastestSpeed = wpm > fastestTest && storageValue.average.every(num => num > fastestTest)
-      if(isFastestSpeed) {
-        if(wpm > fastestTest) fastestTest = wpm 
-        else fastestTest = storageValue.average.filter(num => num > fastestTest)[0]
-      }
+      if(wpm > fastestTest) fastestTest = wpm 
+      else fastestTest = storageValue.average.filter(num => num > fastestTest)[0]
       let averageTest = storageValue.average
-      if(storageValue.average.length > 10) averageTest = storageValue.average.slice(1)
+      if(storageValue.average.length > 5) averageTest = storageValue.average.slice(1)
       return {last: wpm, average: [...averageTest, wpm], fastest: fastestTest}
     }
     if(wpm > 0) setStorageValue(updateStatics())
